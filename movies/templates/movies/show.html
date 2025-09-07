@@ -9,6 +9,15 @@
         <hr />
         <p><b>Description:</b> {{ template_data.movie.description }}</p>
         <p><b>Price:</b> ${{ template_data.movie.price }}</p>
+        {% if template_data.average_rating > 0 %}
+        <p><b>Average Rating:</b> 
+          <span class="text-warning">★</span>
+          {{ template_data.average_rating }}/5 
+          ({{ template_data.reviews|length }} review{{ template_data.reviews|length|pluralize }})
+        </p>
+        {% else %}
+        <p><b>Average Rating:</b> No ratings yet</p>
+        {% endif %}
         <p class="card-text">
           <form method="post" action="{% url 'cart.add' id=template_data.movie.id %}">
             <div class="row">
@@ -41,6 +50,10 @@
             <h6 class="card-subtitle mb-2 text-muted">
               {{ review.date }}
             </h6>
+            <div class="mb-2">
+              <span class="text-warning">★</span>
+              <span class="ms-1">{{ review.rating }}/5</span>
+            </div>
             <p class="card-text">{{ review.comment }}</p>
               <!-- edit review button: if user is correct, display button-->
               {% if user.is_authenticated and user == review.user %}
@@ -67,6 +80,17 @@
                   <form method="POST" action="{% url 'movies.create_review' id=template_data.movie.id %}">
                     {% csrf_token %}
                     <p>
+                      <label for="rating">Rating:</label>
+                      <select name="rating" required class="form-control" id="rating">
+                        <option value="">Select a rating</option>
+                        <option value="5">5 - Excellent</option>
+                        <option value="4">4 - Very Good</option>
+                        <option value="3">3 - Good</option>
+                        <option value="2">2 - Fair</option>
+                        <option value="1">1 - Poor</option>
+                      </select>
+                    </p>
+                    <p>
                       <label for="comment">Comment:</label>
                       <textarea name="comment" required class="form-control" id="comment"></textarea>
                     </p>
@@ -86,7 +110,7 @@
 
       </div>
       <div class="col-md-6 mx-auto mb-3 text-center">
-        <img src="{{ template_data.movie.image.url }}" class="rounded img-card-400" />
+        <img src="{{ template_data.movie.image.url }}" class="rounded img-card-500" />
       </div>
     </div>
   </div>
