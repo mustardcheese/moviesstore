@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="p-3">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col mx-auto mb-3">
+        <h2>My Movie Requests</h2>
+        <hr />
+        
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5>Request a New Movie</h5>
+          </div>
+          <div class="card-body">
+            <form method="POST">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="title" class="form-label">Movie Title *</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+              </div>
+              <div class="mb-3">
+                <label for="description" class="form-label">Description (Optional)</label>
+                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Tell us more about this movie..."></textarea>
+              </div>
+              <button type="submit" class="btn bg-dark text-white">Submit Request</button>
+            </form>
+          </div>
+        </div>
+        
+        <h4>Your Requests</h4>
+        <hr />
+      </div>
+    </div>
+    
+    <div class="row">
+      {% if template_data.requests %}
+        {% for request in template_data.requests %}
+        <div class="col-md-6 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <h5 class="card-title">{{ request.title }}</h5>
+                  <p class="card-text text-muted small">Requested on {{ request.date_requested|date:"F d, Y" }}</p>
+                  {% if request.description %}
+                    <p class="card-text">{{ request.description }}</p>
+                  {% endif %}
+                </div>
+                <form method="POST" action="{% url 'movies.delete_request' request_id=request.id %}" style="display: inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-sm btn-outline-danger" 
+                          onclick="return confirm('Are you sure you want to delete this request?')">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="col">
+          <div class="alert alert-info" role="alert">
+            You haven't requested any movies yet. Use the form above to request a movie!
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

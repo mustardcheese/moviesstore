@@ -1,0 +1,88 @@
+/* Updated: 2025-01-27 - Force CSS reload */
+.bg-index{
+  background: url("/static/img/background.jpg") no-repeat fixed;
+  background-size: 100% auto;
+}
+
+.navbar a.nav-link {
+  color: #FFFEF6 !important;
+}
+
+.bg-dark {
+  background-color: #2E2E2E !important;
+}
+
+.ms-footer {
+  background-color: #001f3f;
+}
+
+.ms-footer p {
+  color: #7F7F7F;
+  font-size: 13px;
+}
+
+.ms-footer a:hover {
+  color: #6ab43e;
+  text-decoration: none;
+}
+
+.ms-footer-bottom span{
+  font-size: 13px;
+  line-height: 38px;
+}
+
+.ms-footer-bottom a {
+  color: #6ab43e;
+  text-decoration: none;
+}
+
+.ms-footer-bottom a:hover {
+  color: #fff;
+}
+
+.img-card-300 {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+.img-card-500 {
+  width: auto;
+  max-width: 500px;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
+.img-card-home {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+.navy-bg {
+  background-color: #001f3f !important;
+}
+
+.gold-bg {
+  background-color: #FFD700 !important;
+}
+
+.navy-header {
+  background-color: #001f3f !important;
+}
+
+.gold-text {
+  color: #FFD700 !important;
+}
+
+.navy-text {
+  color: #001f3f !important;
+}
+
+.max-width-100 {
+  max-width: 100%;
+  height: auto;
+}

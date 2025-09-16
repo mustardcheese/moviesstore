@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<header class="masthead bg-index text-white text-center py-4">
+  <div class="container d-flex align-items-center flex-column pt-2">
+    <div class="gold-bg navy-text p-2 rounded mb-3">
+      <h2>GT Movie Store</h2>
+    </div>
+  </div>
+</header>
+<div class="p-3">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col mx-auto text-center mb-3">
+        <div class="navy-bg text-white p-3 rounded">
+          <h4>Welcome to the best movie store!!</h4>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Highest Rated Movies Section -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <h3 class="text-center mb-4">Highest Rated Movies</h3>
+        {% if template_data.top_movies %}
+          <div class="row">
+            {% for movie in template_data.top_movies %}
+              <div class="col-md-4 col-lg-2 mb-4">
+                <div class="card h-100">
+                  <a href="{% url 'movies.show' movie.id %}">
+                    <img src="{{ movie.image.url }}" class="card-img-top img-card-home" alt="{{ movie.name }}">
+                  </a>
+                  <div class="card-body d-flex flex-column">
+                    <h6 class="card-title">{{ movie.name }}</h6>
+                    <div class="mt-auto">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-muted">${{ movie.price }}</span>
+                        <div class="d-flex align-items-center">
+                          {% if movie.avg_rating %}
+                            <span class="text-warning">★</span>
+                            <small class="ms-1">{{ movie.avg_rating|floatformat:1 }}</small>
+                          {% else %}
+                            <small class="text-muted">No ratings</small>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="text-center">
+            <p class="text-muted">No movies available yet.</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
